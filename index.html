@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-----------bootstrap cdn---------------->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-----------Style css link---------------->
+    <link rel="stylesheet" href="style.css">
+    <title>City Bank Ltd.</title>
+</head>
+<body>
+<div Id="login-unit">
+    <h1 class="text-center">Welcome to City Bank</h1>
+    <div class="login-form">
+        <h3>Login</h3>
+        <input type="text" name="" id="" class="form-control my-4" placeholder="Email">
+        <input type="password" name="" id="" class="form-control my-4" placeholder="Password">
+        <button id="login-button" class="btn btn-success">Enter</button>
+    </div>
+</div>
+
+<div id="transaction-unit">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="diposit">
+                <h5>Deposite</h5>
+                <h2>$<span id="span-deposite">00</span></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="withdraw">
+                <h5>Withdraw</h5>
+                <h2>$<span id="span-withdraw">00</span></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="balance">
+                <h5>Balance</h5>
+                <h2>$<span id="span-balance">1430</span></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="diposit-area login-form">
+                <h4>Deposit</h4>
+                <input type="text" name="" id="deposite-input" class="form-control mb-4" placeholder="$ amount you want to deposit">
+                <button id="deposite-button" class="btn btn-success">Deposite</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="withdraw-area login-form">
+                <h4>Withdraw</h4>
+                <input type="text" name="" id="withdraw-input" class="form-control mb-4" placeholder="$ amount you want to withdraw">
+                <button id="withdraw-button" class="btn btn-success">Withdraw</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    /******  login unit to transaction unit ******/
+    const login=document.getElementById("login-button");
+    login.addEventListener("click",function(){
+        let loginUnit=document.getElementById("login-unit");
+        loginUnit.style.display='none';
+        let transactionUnit =document.getElementById("transaction-unit");
+        transactionUnit.style.display='block';
+    })
+
+    /**************  transaction unit********************/
+
+
+    /****************deposite money ***********************/
+
+    const depositeButton=document.getElementById("deposite-button");
+    depositeButton.addEventListener("click",function(event){
+
+        
+        var depositAmount= takeInputAndConvert("deposite-input");
+
+        getAmmount("span-deposite" ,depositAmount);
+        getAmmount("span-balance" ,depositAmount);  
+
+        document.getElementById("deposite-input" ).value="";
+
+    })
+
+    /****************withdraw money ***********************/
+
+    const withdrawButton = document.getElementById("withdraw-button");
+    withdrawButton.addEventListener("click",function(event){
+
+
+         var withdrawAmount =takeInputAndConvert("withdraw-input");
+
+         getAmmount("span-withdraw" ,withdrawAmount);
+         getAmmount("span-balance" ,(-1)*withdrawAmount);
+
+         document.getElementById("withdraw-input").value="";
+        
+    })
+
+
+/******************funct to take input and convert them in float*****/
+    function takeInputAndConvert(id ){
+        let yourInput=document.getElementById(id).value;
+        let yourAmount=parseFloat(yourInput);
+        return yourAmount;
+    }
+    
+/********* funtion to show the amount in deposite ,withdraw and balane **********/
+    function getAmmount(id ,yourAmount) {
+        
+        let amountView=document.getElementById(id);
+        let sum=parseFloat(amountView.innerText);
+        sum=sum+yourAmount;
+        amountView.innerText=sum;
+    }
+</script>
+
+    
+</body>
+</html>
